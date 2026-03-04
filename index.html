@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mesange Antoine – Portfolio BTS SIO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    /* ── THEMES ── */
+    [data-theme="dark"] {
+      --noir:        #0c0c0c;
+      --blanc:       #f4f3ef;
+      --accent:      #894B0A;
+      --gris:        #161616;
+      --gris2:       #1f1f1f;
+      --muted:       #888;
+      --nav-bg:      rgba(12,12,12,0.95);
+      --sep-color:   #1a1a1a;
+      --border:      #2e2e2e;
+      --tag-border:  #2e2e2e;
+      --info-bg:     #2a2a2a;
+      --bar-bg:      #2a2a2a;
+    }
+    [data-theme="light"] {
+      --noir:       #D9D7D2;
+      --blanc:       #111111;
+      --accent:      #894B0A;
+      --gris:        #e8e7e3;
+      --gris2:       #dddcd8;
+      --muted:       #555;
+      --nav-bg:      rgba(245,244,240,0.97);
+      --sep-color:   #d0cfc9;
+      --border:      #ccc;
+      --tag-border:  #ccc;
+      --info-bg:     #ccc;
+      --bar-bg:      #ccc;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--noir);
+      color: var(--blanc);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      transition: background .3s, color .3s;
+    }
+
+    /* BANDE ACCENT */
+    .topband { width: 100%; height: 3px; background: var(--accent); }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 6vw;
+      border-bottom: 1px solid var(--sep-color);
+      position: sticky; top: 0; z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(10px);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: .06em;
+      color: var(--blanc);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .8rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    nav ul a:hover { color: var(--blanc); }
+    nav ul a.active { color: var(--blanc); }
+
+    /* TOGGLE THEME */
+    .theme-toggle {
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      cursor: pointer;
+      width: 34px; height: 34px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem;
+      transition: border-color .2s, color .2s;
+      flex-shrink: 0;
+    }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* HERO */
+    .hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 7rem 6vw 5.5rem;
+    }
+    .hero .role {
+      font-family: 'Syne', sans-serif;
+      font-size: .78rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .8rem;
+      font-weight: 600;
+    }
+    .hero h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      line-height: 1.08;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 em { color: var(--accent); font-style: normal; }
+    .hero .bio {
+      color: var(--muted);
+      font-size: .93rem;
+      margin-bottom: 2rem;
+      max-width: 430px;
+    }
+    .tags { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 2rem; }
+    .tag {
+      border: 1px solid var(--tag-border);
+      color: var(--muted);
+      font-size: .72rem;
+      padding: .28rem .85rem;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .tag.hot { border-color: var(--accent); color: var(--accent); }
+
+    .btns-row { display: flex; gap: .8rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #f4f3ef;
+      text-decoration: none;
+      padding: .72rem 1.8rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: .8rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: opacity .2s;
+    }
+    .btn:hover { opacity: .82; }
+    .btn-outline {
+      display: inline-block;
+      background: transparent;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      text-decoration: none;
+      padding: .72rem 1.8rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: .8rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: background .2s, color .2s;
+    }
+    .btn-outline:hover { background: var(--accent); color: #f4f3ef; }
+
+    /* HERO CARD */
+    .hero-card {
+      justify-self: center;
+      width: 250px;
+      border: 1px solid var(--border);
+      border-top: 3px solid var(--accent);
+      padding: 2.4rem 1.8rem 2rem;
+      text-align: center;
+      background: var(--gris);
+    }
+    .avatar-circle {
+      width: 88px; height: 88px;
+      border-radius: 50%;
+      background: var(--info-bg);
+      border: 2px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.8rem;
+      color: var(--accent);
+      margin: 0 auto 1.1rem;
+    }
+    .hero-card .c-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      margin-bottom: .2rem;
+    }
+    .hero-card .c-sub { font-size: .78rem; color: var(--muted); margin-bottom: 1.4rem; }
+    .info-line {
+      display: flex; align-items: flex-start; gap: .5rem;
+      font-size: .78rem; color: var(--muted);
+      margin-bottom: .55rem;
+      text-align: left;
+    }
+    .info-line svg { flex-shrink: 0; margin-top: 2px; }
+
+    /* SECTIONS */
+    .section-wrap { max-width: 1100px; margin: 0 auto; padding: 4.5rem 6vw; }
+    .sep { height: 1px; background: var(--sep-color); max-width: 1100px; margin: 0 auto; }
+    .sec-label {
+      font-family: 'Syne', sans-serif;
+      font-size: .68rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .5rem;
+    }
+    .sec-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+      font-weight: 700;
+      margin-bottom: 2.6rem;
+      line-height: 1.2;
+    }
+
+    /* TIMELINE */
+    .timeline { display: flex; flex-direction: column; gap: 1.2rem; }
+    .tl-item {
+      display: grid;
+      grid-template-columns: 175px 1fr;
+      gap: 2rem;
+      background: var(--gris2);
+      border-left: 3px solid var(--accent);
+      padding: 1.5rem 1.8rem;
+    }
+    .tl-date {
+      font-family: 'Syne', sans-serif;
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--accent);
+      line-height: 1.6;
+    }
+    .tl-body h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: .98rem;
+      margin-bottom: .2rem;
+    }
+    .tl-company { font-size: .82rem; color: var(--accent); margin-bottom: .5rem; font-weight: 500; }
+    .tl-desc { font-size: .86rem; color: var(--muted); }
+
+    /* COMPETENCES */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1.1rem;
+    }
+    .sk-card {
+      background: var(--gris2);
+      border-top: 2px solid var(--accent);
+      padding: 1.6rem 1.8rem;
+    }
+    .sk-card h3 {
+      font-family: 'Syne', sans-serif;
+      font-size: .8rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--blanc);
+      margin-bottom: 1rem;
+    }
+    /* BARRES DE PROGRESSION */
+    .skill-bar-item { margin-bottom: .85rem; }
+    .skill-bar-item:last-child { margin-bottom: 0; }
+    .skill-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: .8rem;
+      color: var(--muted);
+      margin-bottom: .3rem;
+    }
+    .skill-bar-label span:last-child { color: var(--accent); font-weight: 600; font-family: 'Syne', sans-serif; font-size: .72rem; }
+    .skill-bar-track {
+      width: 100%;
+      height: 4px;
+      background: var(--bar-bg);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    .skill-bar-fill {
+      height: 100%;
+      background: var(--accent);
+      border-radius: 2px;
+      width: 0;
+      transition: width 1.2s ease;
+    }
+
+    /* ancienne liste pour qualités */
+    .sk-card ul { list-style: none; display: flex; flex-direction: column; gap: .38rem; }
+    .sk-card ul li {
+      font-size: .86rem;
+      color: var(--muted);
+      padding-left: .9rem;
+      position: relative;
+    }
+    .sk-card ul li::before {
+      content: '▸';
+      color: var(--accent);
+      position: absolute; left: 0;
+      font-size: .68rem; top: .18rem;
+    }
+    .sk-card ul li a { color: var(--accent); text-decoration: underline dotted; }
+    .sk-card ul li a:hover { opacity: .8; }
+
+    /* FORMATIONS */
+    .formations { display: flex; flex-direction: column; gap: 1rem; }
+    .form-item {
+      display: flex;
+      gap: 1.6rem;
+      align-items: flex-start;
+      padding: 1.4rem 1.8rem;
+      background: var(--gris2);
+      border-left: 3px solid var(--border);
+    }
+    .form-item.active { border-left-color: var(--accent); }
+    .form-year {
+      min-width: 90px;
+      font-family: 'Syne', sans-serif;
+      font-size: .76rem;
+      font-weight: 600;
+      color: var(--muted);
+      padding-top: .1rem;
+    }
+    .form-item.active .form-year { color: var(--accent); }
+    .form-body h3 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: .95rem;
+      margin-bottom: .15rem;
+    }
+    .form-body p { font-size: .84rem; color: var(--muted); }
+
+    /* SOFT SKILLS */
+    .soft-grid { display: flex; flex-wrap: wrap; gap: .6rem; }
+    .soft-tag {
+      background: var(--gris2);
+      border: 1px solid var(--border);
+      font-size: .82rem;
+      color: var(--muted);
+      padding: .4rem 1rem;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--sep-color);
+      margin-top: 2rem;
+      padding: 1.8rem 6vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: .76rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { opacity: .8; }
+
+    /* RESPONSIVE */
+    @media (max-width: 720px) {
+      .hero { grid-template-columns: 1fr; padding-top: 4rem; }
+      .hero-card { display: none; }
+      .tl-item { grid-template-columns: 1fr; gap: .5rem; }
+      footer { flex-direction: column; gap: .5rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topband"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="index.html">AM<span>.</span></a>
+  <div class="nav-right">
+    <ul>
+      <li><a href="index.html" class="active">Accueil</a></li>
+      <li><a href="projets.html">Projets</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Changer le thème">🌙</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div>
+    <div class="role">Étudiant BTS SIO – Lycée Fulbert Chartres</div>
+    <h1>Mesange<br/><em>Antoine</em></h1>
+    <p class="bio">
+      Passionné par l'informatique et les réseaux, je me forme au BTS SIO depuis 2024.
+      Dynamique, ponctuel et impliqué, je cherche à développer mes compétences
+      techniques à travers des projets concrets et des stages en entreprise.
+    </p>
+    <div class="tags">
+      <span class="tag hot">BTS SIO 2024–2026</span>
+      <span class="tag">Réseaux</span>
+      <span class="tag">Développement</span>
+      <span class="tag">Linux / Windows</span>
+      <span class="tag">Permis B – Véhiculé</span>
+    </div>
+    <div class="btns-row">
+      <a href="contact.html" class="btn">Me contacter</a>
+      <a href="Mesange_Antoine_Portfolio.pdf" download class="btn-outline">⬇ Télécharger le CV</a>
+    </div>
+  </div>
+
+  <div class="hero-card">
+    <div class="avatar-circle">AM</div>
+    <div class="c-name">Antoine Mesange</div>
+    <div class="c-sub">Étudiant en informatique</div>
+    <div class="info-line">
+      <svg width="13" height="13" fill="none" stroke="#894B0A" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+      28170
+    </div>
+    <div class="info-line">
+      <svg width="13" height="13" fill="none" stroke="#894B0A" stroke-width="1.8" viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      antoine.mesange@gmail.com
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- FORMATIONS -->
+<div class="section-wrap" id="formations">
+  <div class="sec-label">Parcours académique</div>
+  <div class="sec-title">Formations</div>
+  <div class="formations">
+    <div class="form-item active">
+      <div class="form-year">2024 – 2026</div>
+      <div class="form-body">
+        <h3>BTS SIO – Services Informatiques aux Organisations</h3>
+        <p>Lycée Fulbert, Chartres</p>
+      </div>
+    </div>
+    <div class="form-item">
+      <div class="form-year">2021 – 2023</div>
+      <div class="form-body">
+        <h3>BUT Biologie médicale biochimie</h3>
+        <p>IUT Évreux</p>
+      </div>
+    </div>
+    <div class="form-item">
+      <div class="form-year">2020 – 2021</div>
+      <div class="form-body">
+        <h3>Terminale STL – Spécialité Biochimie, Biologie, Biotechnologie</h3>
+        <p>Lycée Rotrou, Dreux</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- EXPERIENCES -->
+<div class="section-wrap" id="experience">
+  <div class="sec-label">Parcours</div>
+  <div class="sec-title">Expériences Professionnelles</div>
+  <div class="timeline">
+
+    <div class="tl-item">
+      <div class="tl-date">05/01/2026<br/>→ 27/02/2026</div>
+      <div class="tl-body">
+        <h3>Stage informatique – 2 mois</h3>
+        <div class="tl-company">Jérôme Ordi Services</div>
+        <div class="tl-desc">Stage de 2ème année effectué dans le cadre du BTS SIO. Maintenance informatique, assistance utilisateurs, gestion de parc et support technique.</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">02/06/2025<br/>→ 29/06/2025</div>
+      <div class="tl-body">
+        <h3>Stage informatique – 1 mois</h3>
+        <div class="tl-company">Jérôme Ordi Services</div>
+        <div class="tl-desc">Stage de 1ère année effectué dans le cadre du BTS SIO. Découverte du métier, interventions terrain et support technique.</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">2022 – 2023</div>
+      <div class="tl-body">
+        <h3>Employé commercial</h3>
+        <div class="tl-company">Super U</div>
+        <div class="tl-desc">Gestion des rayons, relation client, mise en rayon et encaissement.</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">Été 2023</div>
+      <div class="tl-body">
+        <h3>Aide-technicien en toxicologie</h3>
+        <div class="tl-company">Charles River – Évreux</div>
+        <div class="tl-desc">Job d'été – assistance technique en laboratoire de toxicologie.</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">Été 2022</div>
+      <div class="tl-body">
+        <h3>Assistant en zone – Job d'été &amp; Formation</h3>
+        <div class="tl-company">Charles River – Évreux</div>
+        <div class="tl-desc">Job d'été et formation au poste d'assistant en zone.</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">2020 – 2021</div>
+      <div class="tl-body">
+        <h3>Assistant polyvalent</h3>
+        <div class="tl-company">Couasnon Charpente</div>
+        <div class="tl-desc">Job d'été – aide polyvalente sur chantiers de charpente.</div>
+      </div>
+    </div>
+
+    <div class="tl-item">
+      <div class="tl-date">2018</div>
+      <div class="tl-body">
+        <h3>Stage de troisième</h3>
+        <div class="tl-company">Commissariat de police de Chartres</div>
+        <div class="tl-desc">Découverte du milieu professionnel et des missions de la police nationale.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- COMPETENCES -->
+<div class="section-wrap" id="competences">
+  <div class="sec-label">Savoir-faire</div>
+  <div class="sec-title">Compétences Techniques</div>
+
+  <div class="skills-grid">
+
+    <!-- Programmation -->
+    <div class="sk-card">
+      <h3>Programmation</h3>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>HTML / CSS</span><span>Bases</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="45"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>Python</span><span>Bases</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="40"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>C#</span><span>Bases</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="35"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>PHP</span><span>Bases</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="35"></div></div>
+      </div>
+    </div>
+
+    <!-- Systèmes -->
+    <div class="sk-card">
+      <h3>Systèmes</h3>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>Windows</span><span>Pratique</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="75"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>Linux</span><span>Pratique</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="60"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>Active Directory</span><span>Notions</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="40"></div></div>
+      </div>
+    </div>
+
+    <!-- Réseaux -->
+    <div class="sk-card">
+      <h3>Réseaux</h3>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>Gestion réseau</span><span>Pratique</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="55"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>Cisco</span><span>Notions</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="40"></div></div>
+      </div>
+      <div class="skill-bar-item">
+        <div class="skill-bar-label"><span>Parc informatique</span><span>BTS SIO</span></div>
+        <div class="skill-bar-track"><div class="skill-bar-fill" data-width="55"></div></div>
+      </div>
+      <ul style="margin-top:.8rem">
+        <li><a href="#" title="Documentation parc informatique Orléans">📄 Documentation – Parc Orléans</a></li>
+      </ul>
+    </div>
+
+    <!-- Qualités -->
+    <div class="sk-card">
+      <h3>Qualités</h3>
+      <ul>
+        <li>Dynamique</li>
+        <li>Capacité d'adaptation</li>
+        <li>Ponctuel</li>
+        <li>Impliqué</li>
+        <li>Perspicace</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- ACTIVITES -->
+<div class="section-wrap">
+  <div class="sec-label">Loisirs</div>
+  <div class="sec-title">Activités</div>
+  <div class="soft-grid">
+    <span class="soft-tag">🎵 Musique</span>
+    <span class="soft-tag">🏃 Sport</span>
+    <span class="soft-tag">Permis B</span>
+    <span class="soft-tag">Véhiculé</span>
+  </div>
+</div>
+
+<div class="sep"></div>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Mesange Antoine – Portfolio BTS SIO</span>
+  <span>
+    <a href="contact.html">Me contacter</a>
+    <div class="info-line">
+  <svg width="13" height="13" fill="none" stroke="#894B0A" stroke-width="1.8" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+  <a href="https://www.linkedin.com/in/antoine-mesange" target="_blank" style="color: var(--muted); text-decoration: none;">LinkedIn – Mesange Antoine</a>
+</div>
+  </span>
+</footer>
+
+<script>
+  // ── THEME TOGGLE ──
+  const btn = document.querySelector('.theme-toggle');
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    btn.textContent = isDark ? '☀️' : '🌙';
+    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+  }
+  // Restore saved theme
+  const saved = localStorage.getItem('theme');
+  if (saved && saved !== 'dark') {
+    document.documentElement.setAttribute('data-theme', saved);
+    btn.textContent = '☀️';
+  }
+
+  // ── BARRES DE PROGRESSION (animation au scroll) ──
+  const fills = document.querySelectorAll('.skill-bar-fill');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        el.style.width = el.dataset.width + '%';
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.3 });
+  fills.forEach(f => observer.observe(f));
+</script>
+
+</body>
+
+</html>
