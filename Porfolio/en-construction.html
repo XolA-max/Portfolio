@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>En cours de développement – Mesange Antoine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --noir:   #0c0c0c;
+      --blanc:  #f4f3ef;
+      --accent: #894B0A;
+      --gris:   #161616;
+      --gris2:  #1f1f1f;
+      --muted:  #888;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--noir);
+      color: var(--blanc);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topband { width: 100%; height: 3px; background: var(--accent); }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 6vw;
+      border-bottom: 1px solid #1e1e1e;
+      background: rgba(12,12,12,0.95);
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: .06em;
+      color: var(--blanc);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: .8rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: color .2s;
+    }
+    nav ul a:hover { color: var(--blanc); }
+
+    /* CENTRE */
+    .center {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem 6vw;
+      text-align: center;
+    }
+
+    /* ICÔNE ANIMÉE */
+    .icon-wrap {
+      width: 90px;
+      height: 90px;
+      border: 2px solid #2a2a2a;
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 2.5rem;
+      animation: spin 3s linear infinite;
+      position: relative;
+    }
+    .icon-wrap::before {
+      content: '';
+      position: absolute;
+      width: 70px; height: 70px;
+      border: 1px solid #222;
+      border-bottom-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 2s linear infinite reverse;
+    }
+    .icon-inner {
+      font-size: 1.8rem;
+      animation: spin 3s linear infinite reverse;
+    }
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    .label {
+      font-family: 'Syne', sans-serif;
+      font-size: .72rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .8rem;
+    }
+
+    h1 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+    }
+    h1 em { color: var(--accent); font-style: normal; }
+
+    .desc {
+      color: var(--muted);
+      font-size: .95rem;
+      max-width: 420px;
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+
+    /* BARRE DE PROGRESSION */
+    .progress-wrap {
+      width: 280px;
+      height: 3px;
+      background: #2a2a2a;
+      margin-bottom: 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .progress-bar {
+      height: 100%;
+      background: var(--accent);
+      width: 40%;
+      animation: progress 2.5s ease-in-out infinite alternate;
+    }
+    @keyframes progress {
+      from { width: 25%; }
+      to   { width: 70%; }
+    }
+
+    .btn-retour {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--blanc);
+      text-decoration: none;
+      padding: .72rem 1.8rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: .8rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      transition: opacity .2s;
+    }
+    .btn-retour:hover { opacity: .82; }
+
+    footer {
+      border-top: 1px solid #1a1a1a;
+      padding: 1.5rem 6vw;
+      display: flex;
+      justify-content: space-between;
+      font-size: .76rem;
+      color: #3a3a3a;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<div class="topband"></div>
+
+<nav>
+  <a class="nav-logo" href="index.html">AM<span>.</span></a>
+  <ul>
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="projets.html">Projets</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="center">
+  <div class="icon-wrap">
+    <span class="icon-inner">⚙️</span>
+  </div>
+
+  <div class="label">En cours de développement</div>
+  <h1>Page <em>bientôt</em><br/>disponible</h1>
+  <p class="desc">
+    Cette section est actuellement en cours de construction.
+    Revenez bientôt pour découvrir le contenu !
+  </p>
+
+  <div class="progress-wrap">
+    <div class="progress-bar"></div>
+  </div>
+
+  <a href="index.html" class="btn-retour">← Retour à l'accueil</a>
+</div>
+
+<footer>
+  <span>© 2025 Mesange Antoine – Portfolio BTS SIO</span>
+  <span><a href="contact.html">Me contacter</a></span>
+</footer>
+
+</body>
+</html>
