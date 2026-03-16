@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact – Mesange Antoine BTS SIO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    [data-theme="dark"] {
+      --noir:       #0c0c0c;
+      --blanc:      #f4f3ef;
+      --accent:     #894B0A;
+      --gris:       #161616;
+      --gris2:      #1f1f1f;
+      --muted:      #888;
+      --nav-bg:     rgba(12,12,12,0.95);
+      --sep-color:  #1a1a1a;
+      --border:     #2e2e2e;
+      --icon-bg:    #2a2a2a;
+    }
+    [data-theme="light"] {
+      --noir:       #D9D7D2;
+      --blanc:      #111111;
+      --accent:     #894B0A;
+      --gris:       #e8e7e3;
+      --gris2:      #dddcd8;
+      --muted:      #555;
+      --nav-bg:     rgba(245,244,240,0.97);
+      --sep-color:  #d0cfc9;
+      --border:     #ccc;
+      --icon-bg:    #ccc;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--noir);
+      color: var(--blanc);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      transition: background .3s, color .3s;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topband { width: 100%; height: 3px; background: var(--accent); }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 6vw;
+      border-bottom: 1px solid var(--sep-color);
+      position: sticky; top: 0; z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(10px);
+    }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.05rem; letter-spacing: .06em; color: var(--blanc); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul a { color: var(--muted); text-decoration: none; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; transition: color .2s; }
+    nav ul a:hover { color: var(--blanc); }
+    nav ul a.active { color: var(--blanc); }
+    .theme-toggle { background: none; border: 1px solid var(--border); color: var(--muted); cursor: pointer; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: border-color .2s, color .2s; flex-shrink: 0; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* MAIN */
+    main { flex: 1; max-width: 1100px; margin: 0 auto; width: 100%; padding: 5rem 6vw 4rem; }
+
+    .sec-label { font-family: 'Syne', sans-serif; font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+    .page-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.1; margin-bottom: .8rem; }
+    .page-title em { color: var(--accent); font-style: normal; }
+    .page-sub { color: var(--muted); font-size: .93rem; margin-bottom: 3rem; max-width: 500px; }
+
+    /* INFO CARD */
+    .info-card {
+      background: var(--gris2);
+      border-top: 2px solid var(--accent);
+      padding: 2rem 2.4rem;
+      max-width: 560px;
+    }
+    .info-card-title {
+      font-family: 'Syne', sans-serif;
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--blanc);
+      margin-bottom: 1.6rem;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      margin-bottom: 1.2rem;
+    }
+    .info-item:last-child { margin-bottom: 0; }
+
+    .info-icon {
+      width: 38px; height: 38px;
+      background: var(--icon-bg);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .info-text { display: flex; flex-direction: column; padding-top: .1rem; }
+    .info-text .info-label {
+      font-size: .72rem;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      margin-bottom: .15rem;
+    }
+    .info-text .info-val {
+      font-size: .9rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .info-text a.info-val:hover { color: var(--blanc); }
+
+    .divider-card { height: 1px; background: var(--border); margin: 1.4rem 0; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--sep-color);
+      padding: 1.8rem 6vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: .76rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .info-card { max-width: 100%; }
+    }
+  </style>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+</head>
+<body>
+
+<div class="topband"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="../index.html">AM<span>.</span></a>
+  <div class="nav-right">
+    <ul>
+      <li><a href="../index.html">Accueil</a></li>
+      <li><a href="projets.html">Projets</a></li>
+      <li><a href="contact.html" class="active">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Changer le thème">🌙</button>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main>
+  <div class="sec-label">Me rejoindre</div>
+  <h1 class="page-title">Me <em>Contacter</em></h1>
+  <p class="page-sub">Une question, une opportunité de stage ou simplement envie d'échanger ? N'hésite pas à m'écrire.</p>
+
+  <div class="info-card">
+    <div class="info-card-title">Informations de contact</div>
+
+    <div class="info-item">
+      <div class="info-icon">
+        <svg width="16" height="16" fill="none" stroke="#894B0A" stroke-width="1.8" viewBox="0 0 24 24">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+          <polyline points="22,6 12,13 2,6"/>
+        </svg>
+      </div>
+      <div class="info-text">
+        <span class="info-label">Email</span>
+        <a href="mailto:antoine.mesange@gmail.com" class="info-val">antoine.mesange@gmail.com</a>
+      </div>
+    </div>
+    <div class="info-item">
+      <div class="info-icon">
+        <svg width="16" height="16" fill="none" stroke="#894B0A" stroke-width="1.8" viewBox="0 0 24 24">
+          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/>
+        </svg>
+      </div>
+      <div class="info-text">
+        <span class="info-label">Localisation</span>
+        <span class="info-val">28170</span>
+      </div>
+    </div>
+
+    <div class="divider-card"></div>
+
+    <div class="info-item">
+      <div class="info-icon">
+        <svg width="16" height="16" fill="none" stroke="#894B0A" stroke-width="1.8" viewBox="0 0 24 24">
+          <rect x="2" y="7" width="20" height="14" rx="2"/>
+          <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/>
+          <line x1="12" y1="12" x2="12" y2="16"/>
+          <line x1="10" y1="14" x2="14" y2="14"/>
+        </svg>
+      </div>
+      <div class="info-text">
+        <span class="info-label">Formation</span>
+        <span class="info-val">BTS SIO – Lycée Fulbert, Chartres</span>
+      </div>
+    </div>
+
+    <div class="info-item">
+      <div class="info-icon">
+        <svg width="16" height="16" fill="none" stroke="#894B0A" stroke-width="1.8" viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="10"/>
+          <polyline points="12 6 12 12 16 14"/>
+        </svg>
+      </div>
+      <div class="info-text">
+        <span class="info-label">Disponibilité</span>
+        <span class="info-val">Disponible pour alternance / stage</span>
+      </div>
+    </div>
+
+    <div class="info-item">
+      <div class="info-icon">
+        <svg width="16" height="16" fill="none" stroke="#894B0A" stroke-width="1.8" viewBox="0 0 24 24">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+          <rect x="2" y="9" width="4" height="12"/>
+          <circle cx="4" cy="4" r="2"/>
+        </svg>
+      </div>
+      <div class="info-text">
+        <span class="info-label">LinkedIn</span>
+        <a href="https://www.linkedin.com/in/antoine-mesange" target="_blank" rel="noopener" class="info-val">linkedin.com/in/antoine-mesange</a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Mesange Antoine – Portfolio BTS SIO</span>
+  <span>
+    <a href="mailto:antoine.mesange@gmail.com">antoine.mesange@gmail.com</a>
+  </span>
+</footer>
+
+<script>
+  const btn = document.querySelector('.theme-toggle');
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    btn.textContent = isDark ? '☀️' : '🌙';
+    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+  }
+  const saved = localStorage.getItem('theme');
+  if (saved && saved !== 'dark') {
+    document.documentElement.setAttribute('data-theme', saved);
+    btn.textContent = '☀️';
+  }
+</script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+

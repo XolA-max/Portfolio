@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Projets – Mesange Antoine BTS SIO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    [data-theme="dark"] {
+      --noir:       #0c0c0c;
+      --blanc:      #f4f3ef;
+      --accent:     #894B0A;
+      --gris:       #161616;
+      --gris2:      #1f1f1f;
+      --muted:      #888;
+      --nav-bg:     rgba(12,12,12,0.95);
+      --sep-color:  #1a1a1a;
+      --border:     #2e2e2e;
+    }
+    [data-theme="light"] {
+      --noir:       #D9D7D2;
+      --blanc:      #111111;
+      --accent:     #894B0A;
+      --gris:       #e8e7e3;
+      --gris2:      #dddcd8;
+      --muted:      #555;
+      --nav-bg:     rgba(245,244,240,0.97);
+      --sep-color:  #d0cfc9;
+      --border:     #ccc;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--noir);
+      color: var(--blanc);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      transition: background .3s, color .3s;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .topband { width: 100%; height: 3px; background: var(--accent); }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 6vw;
+      border-bottom: 1px solid var(--sep-color);
+      position: sticky; top: 0; z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(10px);
+    }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.05rem; letter-spacing: .06em; color: var(--blanc); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 2rem; }
+    nav ul { list-style: none; display: flex; gap: 2rem; }
+    nav ul a { color: var(--muted); text-decoration: none; font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; transition: color .2s; }
+    nav ul a:hover, nav ul a.active { color: var(--blanc); }
+    .theme-toggle { background: none; border: 1px solid var(--border); color: var(--muted); cursor: pointer; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: border-color .2s, color .2s; flex-shrink: 0; }
+    .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
+    main { flex: 1; max-width: 1100px; margin: 0 auto; width: 100%; padding: 5rem 6vw 4rem; }
+
+    .sec-label { font-family: 'Syne', sans-serif; font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); margin-bottom: .5rem; }
+    .page-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(2rem, 4vw, 3.2rem); line-height: 1.1; margin-bottom: .8rem; }
+    .page-title em { color: var(--accent); font-style: normal; }
+    .page-sub { color: var(--muted); font-size: .93rem; margin-bottom: 3.5rem; max-width: 500px; }
+
+    .year-badge { display: inline-block; font-family: 'Syne', sans-serif; font-size: .68rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: .25rem .8rem; margin-bottom: 1.2rem; }
+
+    /* STATUS BADGE */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      font-family: 'Syne', sans-serif;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: .25rem .8rem;
+      border-radius: 2px;
+      margin-bottom: 1rem;
+    }
+    .status-badge::before { content: ''; width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
+    .status-done { background: #0d1f0a; color: #7ec87e; border: 1px solid #2a5a1a; }
+    .status-done::before { background: #7ec87e; }
+    .status-wip  { background: #1a1200; color: #e8c060; border: 1px solid #5a4500; }
+    .status-wip::before  { background: #e8c060; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+
+    .projet-card { background: var(--gris2); border-top: 2px solid var(--accent); padding: 2.2rem 2.4rem; margin-bottom: 1.4rem; }
+    .projet-card h2 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.25rem; margin-bottom: .3rem; }
+    .proj-sub { font-size: .8rem; color: var(--accent); letter-spacing: .06em; text-transform: uppercase; font-family: 'Syne', sans-serif; font-weight: 600; margin-bottom: 1rem; }
+    .projet-card p { font-size: .9rem; color: var(--muted); margin-bottom: 1rem; max-width: 720px; }
+    .projet-card p strong { color: var(--blanc); font-weight: 500; }
+
+    .obj-list { list-style: none; display: flex; flex-direction: column; gap: .4rem; margin: 1rem 0 1.4rem; }
+    .obj-list li { font-size: .88rem; color: var(--muted); padding-left: 1.1rem; position: relative; }
+    .obj-list li::before { content: '▸'; color: var(--accent); position: absolute; left: 0; font-size: .7rem; top: .18rem; }
+
+    .villes-grid { display: flex; flex-wrap: wrap; gap: .6rem; margin: 1rem 0 1.4rem; }
+    .ville-tag { background: var(--gris); border: 1px solid var(--border); font-size: .8rem; color: var(--muted); padding: .35rem 1rem; font-family: 'Syne', sans-serif; font-weight: 600; letter-spacing: .04em; }
+    .ville-tag.active { border-color: var(--accent); color: var(--accent); }
+
+    .doc-panel { background: var(--gris); border: 1px solid var(--border); border-left: 3px solid var(--accent); padding: 1.2rem 1.4rem; margin-top: 1.4rem; display: inline-block; min-width: 260px; }
+    .doc-panel .doc-title { font-family: 'Syne', sans-serif; font-size: .76rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--blanc); margin-bottom: .8rem; }
+    .doc-panel ul { list-style: none; display: flex; flex-direction: column; gap: .3rem; }
+    .doc-panel ul li { font-size: .8rem; color: var(--muted); padding-left: .8rem; position: relative; }
+    .doc-panel ul li::before { content: '·'; color: var(--accent); position: absolute; left: 0; }
+
+    .links-row { display: flex; flex-wrap: wrap; gap: .8rem; margin-top: 1.6rem; }
+    .lien-btn { display: inline-flex; align-items: center; gap: .45rem; background: transparent; border: 1px solid var(--accent); color: var(--accent); text-decoration: none; padding: .6rem 1.3rem; font-family: 'Syne', sans-serif; font-weight: 600; font-size: .78rem; letter-spacing: .07em; text-transform: uppercase; transition: background .2s, color .2s; }
+    .lien-btn:hover { background: var(--accent); color: #f4f3ef; }
+    .lien-btn.filled { background: var(--accent); color: #f4f3ef; }
+    .lien-btn.filled:hover { opacity: .85; }
+
+    .tech-row { display: flex; flex-wrap: wrap; gap: .5rem; margin: .8rem 0 1rem; }
+    .tech-tag { background: var(--gris); border: 1px solid var(--border); font-size: .76rem; color: var(--muted); padding: .28rem .8rem; letter-spacing: .04em; }
+
+    .result-badge { display: inline-block; background: #1a1200; border: 1px solid #5a4500; color: #e8c060; font-family: 'Syne', sans-serif; font-weight: 700; font-size: .82rem; padding: .4rem 1.1rem; letter-spacing: .06em; margin-top: .6rem; }
+
+    .sep { height: 1px; background: var(--sep-color); margin: 0; }
+
+    footer { border-top: 1px solid var(--sep-color); margin-top: 2rem; padding: 1.8rem 6vw; display: flex; justify-content: space-between; align-items: center; font-size: .76rem; color: var(--muted); }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 700px) { .doc-panel { display: block; } }
+  </style>
+  <link rel="icon" type="image/x-icon" href="favicon.ico"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png"/>
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png"/>
+</head>
+<body>
+
+<div class="topband"></div>
+
+<nav>
+  <a class="nav-logo" href="../index.html">AM<span>.</span></a>
+  <div class="nav-right">
+    <ul>
+      <li><a href="../index.html">Accueil</a></li>
+      <li><a href="projets.html" class="active">Projets</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Changer le thème">🌙</button>
+  </div>
+</nav>
+
+<main>
+  <div class="sec-label">BTS SIO – SISR</div>
+  <h1 class="page-title">Mes <em>Projets</em></h1>
+  <p class="page-sub">Projets réalisés dans le cadre de ma formation BTS SIO au Lycée Fulbert de Chartres, en 1ère et 2ème année.</p>
+
+  <!-- 2ÈME ANNÉE -->
+  <div class="year-badge">2ème Année – 2025 / 2026</div>
+
+  <!-- SportLudique -->
+  <div class="projet-card">
+    <span class="status-badge status-wip">En cours</span>
+    <h2>Projet SportLudique</h2>
+    <div class="proj-sub">Infrastructure Réseau – 4 sites</div>
+    <p>
+      Projet de création et de gestion de <strong>quatre réseaux distincts</strong> correspondant à quatre villes,
+      développé dans le cadre du BTS SIO spécialité SISR pour l'année 2025-2026.
+    </p>
+    <div class="villes-grid">
+      <span class="ville-tag">📍 Chartres</span>
+      <span class="ville-tag">📍 Bourges</span>
+      <span class="ville-tag">📍 Tours</span>
+      <span class="ville-tag active">📍 Orléans ★ notre ville</span>
+    </div>
+    <p><strong>Objectifs du projet :</strong></p>
+    <ul class="obj-list">
+      <li>Concevoir et configurer des réseaux locaux (LAN) pour chaque ville</li>
+      <li>Mettre en place une segmentation logique des différents services (VLANs)</li>
+      <li>Assurer la connectivité et la communication entre les réseaux</li>
+      <li>Documenter l'ensemble du projet pour garantir sa clarté et sa maintenabilité</li>
+    </ul>
+    <div class="doc-panel">
+      <div class="doc-title">📁 Documentation – Site Orléans</div>
+      <ul>
+        <li>Configurations (Firewall, Routeur, Switch…)</li>
+        <li>Guide Linux Debian</li>
+        <li>Réinitialisation ROMMON Cisco</li>
+        <li>Guide commandes Switch (Cisco)</li>
+        <li>Guide Windows 10 PAE</li>
+        <li>Récapitulatif &amp; Problèmes rencontrés</li>
+        <li>Services : AD, Ansible, Apache2, BDD, DNS…</li>
+        <li>Docker, GLPI, Github, Graylog, Mail…</li>
+        <li>OpenSSL, ReverseProxy, Virtualisation, Wordpress</li>
+      </ul>
+    </div>
+    <div class="links-row">
+      <a href="https://xola-max.github.io/gp-orleans-sportludique2025-2026/" class="lien-btn filled">📄 Documentation Orléans</a>
+    </div>
+  </div>
+
+  <!-- SEO -->
+  <div class="projet-card">
+    <span class="status-badge status-done">Terminé</span>
+    <h2>Projet Référencement SEO</h2>
+    <div class="proj-sub">SEO – Référencement Google</div>
+    <p>
+      Projet de référencement d'un site web sur Google, réalisé en groupe avec <a href="https://yohanstm-dev.github.io/" target="_blank" rel="noopener" style="color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent);">Yohan saint-marc</a> et en <strong>concurrence avec les autres groupes de la classe</strong>.
+      L'objectif était d'obtenir le meilleur positionnement possible dans les résultats de recherche.
+    </p>
+    <div class="tech-row">
+      <span class="tech-tag">SEO</span>
+      <span class="tech-tag">Référencement naturel</span>
+      <span class="tech-tag">Google Search Console</span>
+      <span class="tech-tag">Optimisation on-page</span>
+    </div>
+    <p>Notre site portait sur le <strong>FC Fulbert Chartres</strong>, club de football régional. Travail sur la structure du contenu, les balises méta, la sémantique et la stratégie de mots-clés.</p>
+    <div class="result-badge">🥈 2ème place – Évaluation du concours SEO</div>
+    <div class="links-row">
+      <a href="https://fcfulbertchartres.github.io/" target="_blank" rel="noopener" class="lien-btn filled">🌐 Notre site FC Fulbert</a>
+      <a href="https://btssio-fulbert.fr/c-projets-challenge-seo-2025" target="_blank" rel="noopener" class="lien-btn">🏆 Résultats Challenge SEO</a>
+    </div>
+  </div>
+
+  <div style="height:2rem"></div>
+
+  <!-- 1ÈRE ANNÉE -->
+  <div class="year-badge">1ère Année – 2024 / 2025</div>
+
+  <!-- Cluedo -->
+  <div class="projet-card">
+    <span class="status-badge status-done">Terminé</span>
+    <h2>Jeu Cluedo en PHP</h2>
+    <div class="proj-sub">Développement Web – PHP / HTML / CSS</div>
+    <p>
+      Développement d'un <strong>jeu Cluedo en PHP, HTML et CSS</strong> réalisé dans le cadre du premier semestre de BTS SIO.
+      Ce projet avait pour but d'appliquer les notions vues en cours : manipulation de sessions, logique de jeu et gestion d'interactions utilisateur.
+    </p>
+    <div class="tech-row">
+      <span class="tech-tag">PHP</span>
+      <span class="tech-tag">HTML</span>
+      <span class="tech-tag">CSS</span>
+      <span class="tech-tag">Sessions PHP</span>
+      <span class="tech-tag">Logique de jeu</span>
+    </div>
+    <ul class="obj-list">
+      <li>Appliquer les notions de programmation PHP vues au 1er semestre</li>
+      <li>Gérer la logique de jeu (suspects, armes, lieux) côté serveur</li>
+      <li>Concevoir une interface de jeu claire et fonctionnelle en HTML/CSS</li>
+      <li>Utiliser les sessions pour maintenir l'état du jeu entre les pages</li>
+    </ul>
+    <div class="links-row">
+      <a href="en-construction.html" class="lien-btn">🎲 Voir le projet Cluedo</a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <span>© 2025 Mesange Antoine – Portfolio BTS SIO</span>
+  <span><a href="mailto:antoine.mesange@gmail.com">antoine.mesange@gmail.com</a></span>
+</footer>
+
+<script>
+  const btn = document.querySelector('.theme-toggle');
+  function toggleTheme() {
+    const html = document.documentElement;
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    btn.textContent = isDark ? '☀️' : '🌙';
+    localStorage.setItem('theme', isDark ? 'light' : 'dark');
+  }
+  const saved = localStorage.getItem('theme');
+  if (saved && saved !== 'dark') {
+    document.documentElement.setAttribute('data-theme', saved);
+    btn.textContent = '☀️';
+  }
+</script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
